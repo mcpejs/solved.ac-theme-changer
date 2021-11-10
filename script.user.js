@@ -5,17 +5,40 @@
 // @author       mcpejs
 // @match        https://solved.ac/profile/*
 // @icon         https://www.google.com/s2/favicons?domain=solved.ac
+
 // @grant        GM_setValue
 // @grant        GM_getValue
+
+// @require     https://code.jquery.com/jquery-3.6.0.slim.min.js
+
+// @require     https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js
+// @resource    bootstrapCSS https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css
+
+// @grant       GM_addStyle
+// @grant       GM_getResourceURL
 // ==/UserScript==
 
-function addStyle(styleString) {
-  const style = document.createElement("style");
-  style.textContent = styleString;
-  document.head.append(style);
+function cssElement(url) {
+  var link = document.createElement("link");
+  link.href = url;
+  link.rel = "stylesheet";
+  link.type = "text/css";
+  return link;
+}
+document.head.appendChild(cssElement(GM_getResourceURL("bootstrapCSS")));
+
+const css = `
+.modal-header {
+  border-bottom: 0 none;
 }
 
-let solved = [
+.modal-footer {
+  border-top: 0 none;
+}
+`;
+GM_addStyle(css);
+
+let solvedac = [
   "rgb(161, 228, 172)",
   "rgb(120, 203, 148)",
   "rgb(78, 177, 124)",
@@ -57,7 +80,7 @@ let psychedelic = ["#faafe1", "#fb6dcc", "#fa3fbc", "#ff00ab"];
 let yellow = ["#d7d7a2", "#d4d462", "#e0e03f", "#ffff00"];
 
 let colors = {
-  solved: solved,
+  solvedac: solvedac,
   halloween: halloween,
 
   amber: amber,
@@ -91,7 +114,7 @@ let colors = {
 
 function applyColor(theme) {
   let i = 0;
-  for (const color of colors.solved) {
+  for (const color of colors.solvedac) {
     const rects = document.querySelectorAll(`[fill="${color}"]`);
     rects.forEach((e) => e.setAttribute("fill", theme[i]));
     i++;
@@ -99,24 +122,75 @@ function applyColor(theme) {
 }
 
 function removeZeroSolved() {
-  document
-    .querySelectorAll(`[fill="rgb(221, 223, 224)"]`)
-    .forEach((e) => e.remove());
+  $('[fill="rgb(221, 223, 224)"]').attr("fill", "rgb(247, 248, 249)");
+  //.remove()
 }
 
 function injectButton() {
   const colorSettingButton =
-    '<a class="setting" style="right: 35px;position: absolute;cursor:pointer">테마 설정</a>';
+    '<a id="setting" style="right: 35px;position: absolute;cursor:pointer">테마 설정</a>';
   document
     .querySelectorAll(".borJCn")[1]
     .insertAdjacentHTML("beforeend", colorSettingButton);
-  document.querySelector(".setting").onclick = () => console.log("");
+  document.querySelector("#setting").onclick = () =>
+    $("#myModal").modal("show");
 }
 
-function main() {
+function injectModal() {
+  var modalHtml = `
+  <div class="modal" id="myModal" tabindex="-1">
+    <div class="modal-dialog" style="top:30%">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="removeZeroSolved">
+            <label class="form-check-label" for="removeZeroSolved">
+            잔디 빈공간 제거
+            </label>
+          </div>
+          <div class="form-group">
+            <select class="form-control" id="color">
+            </select>
+            <a target="blank" href="https://github.com/williambelle/github-contribution-color-graph/blob/master/docs/THEMES.md">여기서</a> 적용 예시를 볼수있어요.
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="save">저장</button>
+        </div>
+      </div>
+    </div>
+  </div>
+`;
+  $("body").prepend(modalHtml);
+  $("#save").click(save);
+
+  const colorEle = $("#color");
+
+  for (const key in colors) {
+    colorEle.append(`<option>${key}</option>`);
+  }
+
+  $("#removeZeroSolved").prop(
+    "checked",
+    GM_getValue("removeZeroSolved", false)
+  );
+  colorEle.val(GM_getValue("color", "solvedac"));
+}
+
+function save() {
+  GM_setValue("removeZeroSolved", $("#removeZeroSolved").is(":checked"));
+  GM_setValue("color", $("#color").val());
+  location.reload();
+}
+
+function profilePage() {
   injectButton();
-  applyColor(colors.blue);
-  //removeZeroSolved()
+  injectModal();
+  // $("#myModal").modal("show");
+
+  if (GM_getValue("removeZeroSolved", false)) removeZeroSolved();
+  applyColor(colors[GM_getValue("color", "solvedac")]);
 }
 
-main();
+profilePage();
