@@ -22,9 +22,9 @@
 ![image](https://user-images.githubusercontent.com/15870158/141087899-6da68fb9-a779-4421-a9f6-e20e8c8e9f69.png)
 
 ## 사용법
-![image](https://user-images.githubusercontent.com/15870158/141088631-626d9090-fb08-43f1-a4ff-7831fce177a1.png)
-이후 프로필 페이지에 들어가면 같은 화면이지만 테마 설정 버튼이 추가로 생겨있습니다.
+![image](https://user-images.githubusercontent.com/15870158/141217215-76b5b50d-aafb-4119-b92a-36a1d0749c4d.png)
+프로필 페이지에 들어가면 기본값인 파란색이 적용되어있으며, 테마 설정 버튼이 추가로 생겨있습니다.
 
 ![image](https://user-images.githubusercontent.com/15870158/141088805-44c27b52-92f3-495e-902e-3200a0d457f4.png)
-테마 설정 버튼을 클릭한뒤에, [적용 예시](https://github.com/williambelle/github-contribution-color-graph/blob/master/docs/THEMES.md)를 보고 색깔을 고른후 저장하면 
-새로 고침후에 적용됩니다
+이후 테마 설정 버튼을 클릭한뒤에, [적용 예시](https://github.com/williambelle/github-contribution-color-graph/blob/master/docs/THEMES.md)를 보고 마음에 드는 색깔을 고른후 저장하면 
+새로고침후에 적용됩니다
