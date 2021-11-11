@@ -39,10 +39,10 @@ const css = `
 GM_addStyle(css);
 
 let solvedac = [
-  "rgb(161, 228, 172)",
-  "rgb(120, 203, 148)",
-  "rgb(78, 177, 124)",
-  "rgb(0, 121, 80)",
+  $("svg > rect:nth-child(385)").attr("fill"),
+  $("svg > rect:nth-child(387)").attr("fill"),
+  $("svg > rect:nth-child(389)").attr("fill"),
+  $("svg > rect:nth-child(391)").attr("fill"),
 ];
 
 //Color palette from https://github.com/williambelle/github-contribution-color-graph/blob/master/src/js/contentscript.js
