@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Solved.ac 테마
 // @description  Solved.ac 사이트의 색 테마를 변경하는 스크립트입니다 https://github.com/mcpejs/solved.ac-theme-changer
-// @version      1.0
+// @version      1.1.1
 // @author       mcpejs
 // @match        https://solved.ac/profile/*
 // @icon         https://www.google.com/s2/favicons?domain=solved.ac
@@ -17,6 +17,8 @@
 // @grant       GM_addStyle
 // @grant       GM_getResourceURL
 // ==/UserScript==
+
+const defaultColor = "blue";
 
 function cssElement(url) {
   var link = document.createElement("link");
@@ -175,7 +177,7 @@ function injectModal() {
     "checked",
     GM_getValue("removeZeroSolved", false)
   );
-  colorEle.val(GM_getValue("color", "solvedac"));
+  colorEle.val(GM_getValue("color", defaultColor));
 }
 
 function save() {
@@ -190,7 +192,7 @@ function profilePage() {
   // $("#myModal").modal("show");
 
   if (GM_getValue("removeZeroSolved", false)) removeZeroSolved();
-  applyColor(colors[GM_getValue("color", "solvedac")]);
+  applyColor(colors[GM_getValue("color", defaultColor)]);
 }
 
 profilePage();
