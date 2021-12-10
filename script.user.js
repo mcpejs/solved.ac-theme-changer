@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Solved.ac 테마
 // @description  Solved.ac 사이트의 색 테마를 변경하는 스크립트입니다 https://github.com/mcpejs/solved.ac-theme-changer
-// @version      1.1.1
+// @version      1.1.2
 // @author       mcpejs
 // @match        https://solved.ac/profile/*
 // @icon         https://www.google.com/s2/favicons?domain=solved.ac
@@ -132,7 +132,7 @@ function injectButton() {
   const colorSettingButton =
     '<a id="setting" style="right: 35px;position: absolute;cursor:pointer">테마 설정</a>';
   document
-    .querySelectorAll(".borJCn")[1]
+    .querySelector("#__next > div:nth-child(4) > div > div:nth-child(3)")
     .insertAdjacentHTML("beforeend", colorSettingButton);
   document.querySelector("#setting").onclick = () =>
     $("#myModal").modal("show");
