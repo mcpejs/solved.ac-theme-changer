@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Solved.ac 테마
 // @description  Solved.ac 사이트의 색 테마를 변경하는 스크립트입니다 https://github.com/mcpejs/solved.ac-theme-changer
-// @version      1.1.2
+// @version      1.1.3
 // @author       mcpejs
 // @match        https://solved.ac/profile/*
 // @icon         https://www.google.com/s2/favicons?domain=solved.ac
