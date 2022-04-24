@@ -132,7 +132,7 @@ function injectButton() {
   const colorSettingButton =
     '<a id="setting" style="right: 35px;position: absolute;cursor:pointer">테마 설정</a>';
   document
-    .querySelector("#__next > div:nth-child(4) > div > div:nth-child(3)")
+    .querySelector("#__next > div > div.ProfileLayout__Background-sc-1jvsur0-0.bEAYrk > div > div:nth-child(3)")
     .insertAdjacentHTML("beforeend", colorSettingButton);
   document.querySelector("#setting").onclick = () =>
     $("#myModal").modal("show");
